@@ -43,4 +43,3 @@ class DownloadController extends ChangeNotifier {
   }
 }
 
-

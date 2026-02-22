@@ -13,7 +13,7 @@ class DownloadTile extends StatelessWidget {
       listenable: controller,
       builder: (context, child) {
         return GestureDetector(
-          onTap: controller.startDownload,
+          onTap: controller.status == DownloadStatus.downloaded ? null : controller.startDownload,
           child: Card(
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
             child: Padding(
