@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../providers/theme_color_provider.dart';
 import '../../theme/theme.dart';
 import 'widgets/download_controler.dart';
+import 'widgets/download_tile.dart';
 
 
 class DownloadsScreen extends StatelessWidget {
@@ -46,7 +47,8 @@ class DownloadsScreen extends StatelessWidget {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      // Download tiles will appear here
+                      for (DownloadController controller in controllers)
+                        DownloadTile(controller: controller),
                     ],
                   ),
                 ),
