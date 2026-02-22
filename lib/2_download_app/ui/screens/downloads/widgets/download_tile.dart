@@ -12,51 +12,54 @@ class DownloadTile extends StatelessWidget {
     return ListenableBuilder(
       listenable: controller,
       builder: (context, child) {
-        return Card(
-          margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Resource name
-                Text(
-                  controller.ressource.name,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                // Progress and size info
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          // Progress text
-                          Text(
-                            _getProgressText(),
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                          const SizedBox(height: 8),
-                          // Progress bar
-                          LinearProgressIndicator(
-                            value: controller.status == DownloadStatus.downloading
-                                ? controller.progress
-                                : (controller.status == DownloadStatus.downloaded ? 1.0 : 0.0),
-                          ),
-                        ],
-                      ),
+        return GestureDetector(
+          onTap: controller.startDownload,
+          child: Card(
+            margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // Resource name
+                  Text(
+                    controller.ressource.name,
+                    style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(width: 16),
-                    // Status icon
-                    _getStatusIcon(),
-                  ],
-                ),
-              ],
+                  ),
+                  const SizedBox(height: 8),
+                  // Progress and size info
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            // Progress text
+                            Text(
+                              _getProgressText(),
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            const SizedBox(height: 8),
+                            // Progress bar
+                            LinearProgressIndicator(
+                              value: controller.status == DownloadStatus.downloading
+                                  ? controller.progress
+                                  : (controller.status == DownloadStatus.downloaded ? 1.0 : 0.0),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 16),
+                      // Status icon
+                      _getStatusIcon(),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
