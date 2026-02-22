@@ -83,13 +83,9 @@ class DownloadTile extends StatelessWidget {
     if (controller.status == DownloadStatus.notDownloaded) {
       return const Icon(Icons.download);
     } else if (controller.status == DownloadStatus.downloading) {
-      return const SizedBox(
-        width: 24,
-        height: 24,
-        child: CircularProgressIndicator(strokeWidth: 2),
-      );
+      return const Icon(Icons.file_download_outlined);
     } else {
-      return const Icon(Icons.check, color: Colors.green);
+      return const Icon(Icons.folder);
     }
   }
 }
