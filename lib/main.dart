@@ -13,18 +13,32 @@ void main() {
   );
 }
 
-enum CardType { red, blue }
+enum CardType { red, green, yellow, blue }
 
 // ColorService extends ChangeNotifier
 class ColorService extends ChangeNotifier {
   int _redTapCount = 0;
+  int _greenTapCount = 0;
+  int _yellowTapCount = 0;
   int _blueTapCount = 0;
 
   int get redTapCount => _redTapCount;
+  int get greenTapCount => _greenTapCount;
+  int get yellowTapCount => _yellowTapCount;
   int get blueTapCount => _blueTapCount;
 
   void incrementRedTapCount() {
     _redTapCount++;
+    notifyListeners();
+  }
+
+  void incrementGreenTapCount() {
+    _greenTapCount++;
+    notifyListeners();
+  }
+
+  void incrementYellowTapCount() {
+    _yellowTapCount++;
     notifyListeners();
   }
 
@@ -96,6 +110,26 @@ class ColorTapsScreen extends StatelessWidget {
             listenable: colorService,
             builder: (context, child) {
               return ColorTap(
+                type: CardType.green,
+                tapCount: colorService.greenTapCount,
+                onTap: colorService.incrementGreenTapCount,
+              );
+            },
+          ),
+          ListenableBuilder(
+            listenable: colorService,
+            builder: (context, child) {
+              return ColorTap(
+                type: CardType.yellow,
+                tapCount: colorService.yellowTapCount,
+                onTap: colorService.incrementYellowTapCount,
+              );
+            },
+          ),
+          ListenableBuilder(
+            listenable: colorService,
+            builder: (context, child) {
+              return ColorTap(
                 type: CardType.blue,
                 tapCount: colorService.blueTapCount,
                 onTap: colorService.incrementBlueTapCount,
@@ -120,7 +154,18 @@ class ColorTap extends StatelessWidget {
     required this.onTap,
   });
 
-  Color get backgroundColor => type == CardType.red ? Colors.red : Colors.blue;
+  Color get backgroundColor {
+    switch (type) {
+      case CardType.red:
+        return Colors.red;
+      case CardType.green:
+        return Colors.green;
+      case CardType.yellow:
+        return Colors.yellow;
+      case CardType.blue:
+        return Colors.blue;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +205,8 @@ class StatisticsScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text('Red Taps: ${colorService.redTapCount}', style: TextStyle(fontSize: 24)),
+                Text('Green Taps: ${colorService.greenTapCount}', style: TextStyle(fontSize: 24)),
+                Text('Yellow Taps: ${colorService.yellowTapCount}', style: TextStyle(fontSize: 24)),
                 Text('Blue Taps: ${colorService.blueTapCount}', style: TextStyle(fontSize: 24)),
               ],
             ),
