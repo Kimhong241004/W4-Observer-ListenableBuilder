@@ -43,13 +43,6 @@ class DownloadTile extends StatelessWidget {
                               _getProgressText(),
                               style: const TextStyle(fontSize: 14),
                             ),
-                            const SizedBox(height: 8),
-                            // Progress bar
-                            LinearProgressIndicator(
-                              value: controller.status == DownloadStatus.downloading
-                                  ? controller.progress
-                                  : (controller.status == DownloadStatus.downloaded ? 1.0 : 0.0),
-                            ),
                           ],
                         ),
                       ),
